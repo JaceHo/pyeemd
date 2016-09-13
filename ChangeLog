@@ -1,0 +1,8 @@
+Notable changes from previous release:
+
+In development:
+	* Split pyeemd to a separate project
+	* Use find_library from ctypes to find libeemd
+	* Switch to setuptools
+
+For older changes, please see ChangeLog of libeemd.
