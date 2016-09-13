@@ -57,7 +57,7 @@ def test_invalid_arguments4():
     x = []
     ceemdan(x, num_siftings=-3)
 
-@raises(ArgumentError)
+@raises(ArgumentError, TypeError)
 def test_invalid_arguments6():
     x = []
     ceemdan(x, num_imfs="Just a few")
