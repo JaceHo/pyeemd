@@ -66,7 +66,7 @@ def execute_matlab(scriptfile):
 def get_reference_spline(xs, ys, spline_xs):
     with NamedTemporaryFile(suffix=".csv") as outfileobj:
         matlab_script = "x = %s\ny = %s\nxx = %s\nspliney = spline(x,y,xx)\ndlmwrite('%s', spliney, 'precision', 16)\n" % (list(xs), list(ys), list(spline_xs), outfileobj.name)
-        with NamedTemporaryFile(suffix=".m") as scriptfileobj:
+        with NamedTemporaryFile(mode='w+', suffix=".m") as scriptfileobj:
             # Write Matlab script to temporary file
             scriptfileobj.file.write(matlab_script)
             scriptfileobj.file.flush()
@@ -129,7 +129,7 @@ def get_reference_extrema(ys):
     """ % (list(ys), maxx_fileobj.name, maxy_fileobj.name,
            minx_fileobj.name, miny_fileobj.name)
     # Write Matlab script to temporary file
-    scriptfileobj = NamedTemporaryFile(suffix=".m")
+    scriptfileobj = NamedTemporaryFile(mode='w+', suffix=".m")
     scriptfileobj.file.write(matlab_script)
     scriptfileobj.file.flush()
     # Execute Matlab
@@ -170,7 +170,7 @@ def get_reference_imfs(ys):
     dlmwrite('%s', imfs, 'precision', 16)
     """ % (list(ys), imfs_fileobj.name)
     # Write Matlab script to temporary file
-    scriptfileobj = NamedTemporaryFile(suffix=".m")
+    scriptfileobj = NamedTemporaryFile(mode='w+', suffix=".m")
     scriptfileobj.file.write(matlab_script)
     scriptfileobj.file.flush()
     # Execute Matlab
