@@ -1,3 +1,4 @@
+from __future__ import print_function
 
 # Copyright 2013 Perttu Luukko
 
@@ -90,13 +91,13 @@ def check_spline(xs, ys):
         legend(loc="upper left")
         title("Spline comparison")
         show()
-        print "xs:", list(xs)
-        print "ys:", list(ys)
-        print "spline_ys:", list(spline_ys)
-        print "ref_spline_ys:", list(ref_spline_ys)
+        print("xs:", list(xs))
+        print("ys:", list(ys))
+        print("spline_ys:", list(spline_ys))
+        print("ref_spline_ys:", list(ref_spline_ys))
         absdiff = abs(spline_ys - ref_spline_ys)
-        print "absolute difference", list(absdiff)
-        print "maximal difference", max(absdiff)
+        print("absolute difference", list(absdiff))
+        print("maximal difference", max(absdiff))
         raise
 
 
@@ -211,12 +212,12 @@ def check_imfs(ys):
             absdiff = abs(imf-ref_imf)
             mask = (ref_imf != 0)
             reldiff = absdiff[mask]/abs(ref_imf[mask])
-            print "maximal absolute difference for %s: %.3e" % (titlestr, absdiff.max())
-            print "maximal relative difference for %s: %.3e" %(titlestr, reldiff.max())
+            print("maximal absolute difference for %s: %.3e" % (titlestr, absdiff.max()))
+            print("maximal relative difference for %s: %.3e" %(titlestr, reldiff.max()))
     if len(exceptions) != 0:
         for e, titlestr in exceptions:
-            print titlestr, "didn't match with reference:"
-            print e
+            print(titlestr, "didn't match with reference:")
+            print(e)
         raise AssertionError("IMFs didn't match with reference for input data:\n%s" % list(ys))
 
 

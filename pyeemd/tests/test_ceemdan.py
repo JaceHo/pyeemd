@@ -1,3 +1,4 @@
+from __future__ import print_function
 
 # Copyright 2013 Perttu Luukko
 
@@ -95,7 +96,7 @@ def test_extract_residual():
     # the residual should be approximately equal to the signal without the
     # added noise, at least away from the ends
     residual = imfs[-1,:]
-    print abs(residual-x)[10:-10]
+    print(abs(residual-x)[10:-10])
     assert_allclose(residual[10:-10], x[10:-10], rtol=0.1, atol=1)
 
 def test_rng_seed_nonequal():

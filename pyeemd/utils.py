@@ -21,9 +21,11 @@
 Some utility functions for visualizing IMFs produced by the (E)EMD
 methods.
 """
+from __future__ import print_function
+from __future__ import absolute_import
 
 from pylab import plot, figure, title
-from pyeemd import emd_find_extrema, emd_evaluate_spline
+from .pyeemd import emd_find_extrema, emd_evaluate_spline
 
 def plot_imfs(imfs, new_figs=True, plot_splines=True):
     """
@@ -44,7 +46,7 @@ def plot_imfs(imfs, new_figs=True, plot_splines=True):
     """
     for i in range(imfs.shape[0]):
         label = "IMF #%d" % (i+1) if (i+1) < imfs.shape[0] else "Residual"
-        print "Plotting", label
+        print("Plotting", label)
         if new_figs:
             figure()
         imf = imfs[i, :]
