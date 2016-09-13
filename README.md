@@ -51,7 +51,7 @@ if installing only for a specific user.
 
 Unit tests can be run with
 
-	./setup.py test
+	./setup.py test --quiet
 
 To install for a specific Python version use that version to run `setup.py`, e.g.,
 
