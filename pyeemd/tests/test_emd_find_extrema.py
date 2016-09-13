@@ -18,8 +18,8 @@
 
 from pyeemd import emd_find_extrema
 from nose.tools import assert_equal, assert_true, assert_false, assert_greater, assert_false, raises
-from numpy import zeros, all
-from numpy.random import normal
+from numpy import zeros, all, repeat
+from numpy.random import normal, randint
 
 @raises(ValueError)
 def test_bogus():
@@ -76,6 +76,12 @@ def test_extrema():
         maxx, maxy, minx, miny = emd_find_extrema(x)
         yield check_extrema, x, maxx, maxy, minx, miny
 
+def test_extrema_flats():
+    for i in range(16):
+        x = repeat(normal(0, 1, 64), randint(1, 3, 64))
+        maxx, maxy, minx, miny = emd_find_extrema(x)
+        yield check_extrema, x, maxx, maxy, minx, miny
+
 def check_extrema(x, maxx, maxy, minx, miny):
     assert_equal(maxx[0], 0)
     assert_equal(maxx[-1], len(x)-1)
@@ -84,22 +90,24 @@ def check_extrema(x, maxx, maxy, minx, miny):
     for n, i in enumerate(maxx):
         if (i == 0 or i == len(x)-1):
             continue
-        assert_equal(maxy[n], x[i])
         if (i == int(i)):
+            i = int(i)
+            assert_equal(maxy[n], x[i])
             assert x[i-1] < x[i]
             assert x[i+1] < x[i]
         else:
             i = int(i)
-            assert_equal(x[i-1], x[i])
+            assert_equal(x[i], x[i])
             assert_equal(x[i+1], x[i])
     for n, i in enumerate(minx):
         if (i == 0 or i == len(x)-1):
             continue
-        assert_equal(miny[n], x[i])
         if (i == int(i)):
+            i = int(i)
+            assert_equal(miny[n], x[i])
             assert x[i-1] > x[i]
             assert x[i+1] > x[i]
         else:
             i = int(i)
-            assert_equal(x[i-1], x[i])
+            assert_equal(x[i], x[i])
             assert_equal(x[i+1], x[i])
