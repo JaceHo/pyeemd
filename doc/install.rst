@@ -16,10 +16,10 @@ variable).
 
 To install `pyeemd` please run::
 
-    python2 setup.py install
+    python setup.py install
 
 In the top-level directory of `pyeemd` (the one with ``setup.py``).
 
 If you want to specify an alternative installation prefix, you can do it as follows::
 
-    python2 setup.py install --prefix=$HOME/usr
+    python setup.py install --prefix=$HOME/usr
