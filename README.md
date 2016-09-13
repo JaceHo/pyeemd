@@ -34,6 +34,9 @@ To install pyeemd you'll also need
 [setuptools](https://pypi.python.org/pypi/setuptools). Other dependencies are
 handled automatically by setuptools.
 
+pyeemd should work with either Python 2 (2.6 or later) or Python 3. If it
+doesn't, please file an [issue](https://bitbucket.org/luukko/pyeemd/issues).
+
 ### Installation
 
 Simply run
@@ -49,6 +52,10 @@ if installing only for a specific user.
 Unit tests can be run with
 
 	./setup.py test
+
+To install for a specific Python version use that version to run `setup.py`, e.g.,
+
+	python3 setup.py install --user
 
 Additional documentation
 ------------------------
