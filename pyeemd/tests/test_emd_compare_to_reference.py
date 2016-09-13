@@ -1,3 +1,4 @@
+from __future__ import print_function
 
 # Copyright 2013 Perttu Luukko
 
@@ -65,7 +66,7 @@ def execute_matlab(scriptfile):
 def get_reference_spline(xs, ys, spline_xs):
     with NamedTemporaryFile(suffix=".csv") as outfileobj:
         matlab_script = "x = %s\ny = %s\nxx = %s\nspliney = spline(x,y,xx)\ndlmwrite('%s', spliney, 'precision', 16)\n" % (list(xs), list(ys), list(spline_xs), outfileobj.name)
-        with NamedTemporaryFile(suffix=".m") as scriptfileobj:
+        with NamedTemporaryFile(mode='w+', suffix=".m") as scriptfileobj:
             # Write Matlab script to temporary file
             scriptfileobj.file.write(matlab_script)
             scriptfileobj.file.flush()
@@ -90,13 +91,13 @@ def check_spline(xs, ys):
         legend(loc="upper left")
         title("Spline comparison")
         show()
-        print "xs:", list(xs)
-        print "ys:", list(ys)
-        print "spline_ys:", list(spline_ys)
-        print "ref_spline_ys:", list(ref_spline_ys)
+        print("xs:", list(xs))
+        print("ys:", list(ys))
+        print("spline_ys:", list(spline_ys))
+        print("ref_spline_ys:", list(ref_spline_ys))
         absdiff = abs(spline_ys - ref_spline_ys)
-        print "absolute difference", list(absdiff)
-        print "maximal difference", max(absdiff)
+        print("absolute difference", list(absdiff))
+        print("maximal difference", max(absdiff))
         raise
 
 
@@ -128,7 +129,7 @@ def get_reference_extrema(ys):
     """ % (list(ys), maxx_fileobj.name, maxy_fileobj.name,
            minx_fileobj.name, miny_fileobj.name)
     # Write Matlab script to temporary file
-    scriptfileobj = NamedTemporaryFile(suffix=".m")
+    scriptfileobj = NamedTemporaryFile(mode='w+', suffix=".m")
     scriptfileobj.file.write(matlab_script)
     scriptfileobj.file.flush()
     # Execute Matlab
@@ -169,7 +170,7 @@ def get_reference_imfs(ys):
     dlmwrite('%s', imfs, 'precision', 16)
     """ % (list(ys), imfs_fileobj.name)
     # Write Matlab script to temporary file
-    scriptfileobj = NamedTemporaryFile(suffix=".m")
+    scriptfileobj = NamedTemporaryFile(mode='w+', suffix=".m")
     scriptfileobj.file.write(matlab_script)
     scriptfileobj.file.flush()
     # Execute Matlab
@@ -211,12 +212,12 @@ def check_imfs(ys):
             absdiff = abs(imf-ref_imf)
             mask = (ref_imf != 0)
             reldiff = absdiff[mask]/abs(ref_imf[mask])
-            print "maximal absolute difference for %s: %.3e" % (titlestr, absdiff.max())
-            print "maximal relative difference for %s: %.3e" %(titlestr, reldiff.max())
+            print("maximal absolute difference for %s: %.3e" % (titlestr, absdiff.max()))
+            print("maximal relative difference for %s: %.3e" %(titlestr, reldiff.max()))
     if len(exceptions) != 0:
         for e, titlestr in exceptions:
-            print titlestr, "didn't match with reference:"
-            print e
+            print(titlestr, "didn't match with reference:")
+            print(e)
         raise AssertionError("IMFs didn't match with reference for input data:\n%s" % list(ys))
 
 

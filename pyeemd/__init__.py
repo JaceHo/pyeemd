@@ -17,4 +17,5 @@
 # You should have received a copy of the GNU General Public License
 # along with libeemd.  If not, see <http://www.gnu.org/licenses/>.
 
-from pyeemd import eemd, ceemdan, emd, emd_find_extrema, emd_num_imfs, emd_evaluate_spline
+from __future__ import absolute_import
+from .pyeemd import eemd, ceemdan, emd, emd_find_extrema, emd_num_imfs, emd_evaluate_spline
