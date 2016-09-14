@@ -21,7 +21,7 @@ from pyeemd import eemd
 from nose.tools import assert_equal, raises
 from numpy import zeros, all, abs, allclose, linspace
 from numpy.testing import assert_allclose
-from numpy.random import normal
+from numpy.random import normal, randint
 from ctypes import ArgumentError
 
 @raises(ValueError)
@@ -109,8 +109,9 @@ def test_rng_seed_nonequal():
 def test_rng_seed_equal():
     N = 64
     x = normal(0, 1, N)
-    imfs1 = eemd(x, num_siftings=10, rng_seed=9876)
-    imfs2 = eemd(x, num_siftings=10, rng_seed=9876)
+    seed = randint(1<<30)
+    imfs1 = eemd(x, rng_seed=seed)
+    imfs2 = eemd(x, rng_seed=seed)
     assert_allclose(imfs1, imfs2)
 
 def test_num_imfs():

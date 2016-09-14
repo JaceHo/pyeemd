@@ -21,7 +21,7 @@ from pyeemd import ceemdan
 from nose.tools import assert_equal, raises
 from numpy import zeros, all, abs, allclose, linspace, sum
 from numpy.testing import assert_allclose
-from numpy.random import normal
+from numpy.random import normal, randint
 from ctypes import ArgumentError
 
 @raises(ValueError)
@@ -109,8 +109,13 @@ def test_rng_seed_nonequal():
 def test_rng_seed_equal():
     N = 64
     x = normal(0, 1, N)
-    imfs1 = ceemdan(x, num_siftings=10, rng_seed=9876)
-    imfs2 = ceemdan(x, num_siftings=10, rng_seed=9876)
+    seed = randint(1<<30)
+    # XXX This test fails with the S-number stopping criterion if more than one
+    # thread is used. There is something in the CEEMDAN code that makes the
+    # results sensitive to tiny discrepancies resulting from multithreaded
+    # computation. This is issue #2 in libeemd.
+    imfs1 = ceemdan(x, num_siftings=10, rng_seed=seed)
+    imfs2 = ceemdan(x, num_siftings=10, rng_seed=seed)
     assert_allclose(imfs1, imfs2)
 
 def test_completeness():
