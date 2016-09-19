@@ -20,7 +20,7 @@
 from setuptools import setup, find_packages
 
 setup(name='pyeemd',
-      version='1.3.1',
+      version='1.4',
       description='Ensemble Empirical Mode Decomposition with Python',
       author='Perttu Luukko',
       author_email='perttu.luukko@iki.fi',
