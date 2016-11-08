@@ -2,3 +2,4 @@
 /dist
 /pyeemd.egg-info
 *.pyc
+*.swp
