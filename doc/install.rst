@@ -12,7 +12,8 @@ details.
 The `pyeemd` module expects to find either a file ``libeemd.so`` in the same
 directory as ``pyeemd.py``, or somewhere where `ctypes.util.find_library` will
 find it (most notably directories listed in the ``LIBRARY_PATH`` environment
-variable).
+variable). You can also force `pyeemd` to use a specific file by setting the
+``LIBEEMD_FILE`` environment variable.
 
 To install `pyeemd` please run::
 

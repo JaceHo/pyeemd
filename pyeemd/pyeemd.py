@@ -23,8 +23,9 @@ Decomposition on various kinds of data. This Python module exposes the methods
 defined in ``libeemd.so`` via a simple ``ctypes`` interface.
 
 .. important::
-    If the library file ``libeemd.so`` is present in the same directory as
-    ``pyeemd.py`` pyeemd will try to use it. Otherwise it resorts to
+    The path to the library file ``libeemd.so`` is set by the environment
+    variable LIBEEMD_FILE. If the variable is not set, pyeemd tries to find the
+    file in the same directory as ``pyeemd.py``. Finally it resorts to
     ``ctypes.util.find_library`` for finding it. If you have trouble getting
     pyeemd to find the libeemd library, check out the documentation of
     ``ctypes.util.find_library`` to see what the utility actually does on your
@@ -40,14 +41,19 @@ from numpy.ctypeslib import ndpointer
 
 # Load libeemd.so
 
+LIBEEMD_FILE_VARIABLE = "LIBEEMD_FILE"
+
 def _init():
-    # First try 'libeemd.so' in current directory
+    # First, try an environment variable
+    if LIBEEMD_FILE_VARIABLE in os.environ:
+        return ctypes.CDLL(os.environ[LIBEEMD_FILE_VARIABLE])
+    # Second, try 'libeemd.so' in current directory
     dirname = os.path.dirname(os.path.realpath(__file__))
     check_first_names = ["libeemd.so"]
     for libfile in [os.path.join(dirname, filename) for filename in check_first_names]:
         if os.path.exists(libfile):
             return ctypes.CDLL(libfile)
-    # Then try find_library
+    # Finally, try find_library
     lib = find_library("eemd")
     if lib:
         return ctypes.CDLL(lib)
