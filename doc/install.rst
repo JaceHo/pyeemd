@@ -9,7 +9,7 @@ first need install `libeemd`, since `pyeemd` is only a wrapper for that
 library. Please see the ``README`` file distributed with `libeemd` for more
 details.
 
-The `pyeemd` module expects to find either a file ``libeemd.so`` in the same
+The `pyeemd` module expects to find the file ``libeemd.so`` either in the same
 directory as ``pyeemd.py``, or somewhere where `ctypes.util.find_library` will
 find it (most notably directories listed in the ``LIBRARY_PATH`` environment
 variable). You can also force `pyeemd` to use a specific file by setting the
