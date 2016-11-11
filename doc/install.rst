@@ -24,3 +24,8 @@ In the top-level directory of `pyeemd` (the one with ``setup.py``).
 If you want to specify an alternative installation prefix, you can do it as follows::
 
     python setup.py install --prefix=$HOME/usr
+
+To make sure everything is working correctly, it is a good idea to run the
+supplied unit tests with::
+
+    python setup.py test
