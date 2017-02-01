@@ -28,8 +28,9 @@ To use pyeemd you'll first need to download and install [libeemd][]. At runtime
 pyeemd will try to locate the libeemd library (file `libeemd.so`) using
 `ctypes.util.find_library` from the Python standard library. If you have
 trouble getting pyeemd to find libeemd, you can set the environment variable
-`LIBEEMD_FILE` to a path to `libeemd.so`, or copy the file `libeemd.so` to the
-same directory as the file `pyeemd.py`.
+`LIBEEMD_FILE` to a path to `libeemd.so`. Alternatively, you can also copy the
+`libeemd.so*` files from `libeemd` to the same directory as the file
+`pyeemd.py`.
 
 To install pyeemd you'll also need
 [setuptools](https://pypi.python.org/pypi/setuptools). Other dependencies are
