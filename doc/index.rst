@@ -12,13 +12,19 @@ its complete variant (CEEMDAN) or the regular empirical mode decomposition
 (EMD).
 
 If you have any questions or problems with `pyeemd`, or you wish to
-propose enhancements, please check out the `main project website`_. Also, if
-you want more detail on the inner workings of `libeemd` and/or wish to cite it
-in scientific work, please see the associated article_ published in Computational
-Statistics.
+propose enhancements, please check out the `main project website`_.
 
 .. _main project website: https://bitbucket.org/luukko/pyeemd/
-.. _article: https://dx.doi.org/10.1007/s00180-015-0603-9
+
+If you use pyeemd for scientific work please cite: (`link`__)
+
+    Luukko, P. J. J., Helske, J. & Räsänen, E., Comput. Stat. **31**, 545 (2016)
+
+This article also describes in detail what libeemd actually
+computes. You should definitely read it if you are unsure about what EMD, EEMD
+and CEEMDAN are.
+
+__ https://dx.doi.org/10.1007/s00180-015-0603-9
 
 Contents:
 ---------
