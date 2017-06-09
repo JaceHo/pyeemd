@@ -24,8 +24,4 @@ Auxiliary routines
 Utility code: pyeemd.utils
 --------------------------
 
-.. automodule:: utils
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
+.. autofunction:: pyeemd.utils.plot_imfs
