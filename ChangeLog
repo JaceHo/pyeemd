@@ -3,6 +3,7 @@ Notable changes from previous release:
 In development:
 	* Location of libeemd.so can be set by environment variable
 	  LIBEEMD_FILE
+	* Add function for querying the libeemd version from the library file
 
 Version 1.4:
 	* Split pyeemd to a separate project

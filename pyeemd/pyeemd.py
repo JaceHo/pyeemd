@@ -120,6 +120,14 @@ _libeemd.emd_evaluate_spline.argtypes = [ndpointer(float, flags=('C', 'A')),
                                          ndpointer(float, flags=('C', 'A', 'W')),
                                          ndpointer(float, flags=('C', 'A', 'W'))]
 
+def libeemd_version():
+    """
+    Read the version string from the libeemd library and return it as a tuple of integers.
+    """
+    version_str = ctypes.c_char_p.in_dll(_libeemd, "libeemd_version").value
+    version_tuple = tuple([ int(s) for s in version_str.split(b'.') ])
+    return version_tuple
+
 
 def eemd(inp, num_imfs=None, ensemble_size=250, noise_strength=0.2, S_number=None,
          num_siftings=None, rng_seed=0):
