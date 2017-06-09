@@ -12,12 +12,12 @@ its complete variant (CEEMDAN) or the regular empirical mode decomposition
 (EMD).
 
 If you have any questions or problems with `pyeemd`, or you wish to
-propose enhancements, please check out the main page of `libeemd`_. Also, if
+propose enhancements, please check out the `main project website`_. Also, if
 you want more detail on the inner workings of `libeemd` and/or wish to cite it
 in scientific work, please see the associated article_ published in Computational
 Statistics.
 
-.. _libeemd: https://bitbucket.org/luukko/libeemd/
+.. _main project website: https://bitbucket.org/luukko/pyeemd/
 .. _article: https://dx.doi.org/10.1007/s00180-015-0603-9
 
 Contents:
