@@ -25,7 +25,7 @@ from __future__ import print_function
 from __future__ import absolute_import
 
 from pylab import plot, figure, title
-from .pyeemd import emd_find_extrema, emd_evaluate_spline
+from ..pyeemd import emd_find_extrema, emd_evaluate_spline
 
 def plot_imfs(imfs, new_figs=True, plot_splines=True):
     """
