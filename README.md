@@ -3,13 +3,19 @@ pyeemd – a Python interface to libeemd
 
 This program is a Python interface to [libeemd][], which is a C library for
 performing the ensemble empirical mode decomposition (EEMD), its complete
-variant (CEEMDAN) or the regular empirical mode decomposition (EMD). The
-details of what libeemd actually computes are available as a separate
-[article][], which you should read if you are unsure about what EMD, EEMD and
-CEEMDAN are.
+variant (CEEMDAN) or the regular empirical mode decomposition (EMD).
+
+[libeemd]: https://bitbucket.org/luukko/libeemd
+
+Citing pyeemd
+--------------
+
+If you use pyeemd for scientific work please cite [*Luukko, P.J.J., Helske, J.
+& Räsänen, E., Comput. Stat. **31**, 545 (2016)*][article]. This article also
+describes in detail what libeemd actually computes. You should definitely read
+it if you are unsure about what EMD, EEMD and CEEMDAN are.
 
 [article]: https://dx.doi.org/10.1007/s00180-015-0603-9
-[libeemd]: https://bitbucket.org/luukko/libeemd
 
 Program license
 ---------------
