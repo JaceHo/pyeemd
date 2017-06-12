@@ -311,8 +311,8 @@ def ceemdan(inp, num_imfs=None, ensemble_size=250, noise_strength=0.2, S_number=
 
 def bemd(inp, directions=64, num_imfs=None, num_siftings=10):
     """
-    Decompose complex-valued input data array `inp` with the
-    Bivariate Empirical Mode Decomposition algorithm [1]_.
+    Decompose complex-valued input data array `inp` with the Bivariate Empirical Mode
+    Decomposition algorithm[1]_. The implemented algorithm is scheme 2 in the referenced article.
 
     Parameters
     ----------
