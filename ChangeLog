@@ -1,6 +1,7 @@
 Notable changes from previous release:
 
 In development:
+	* Add interface for Bivariate EMD
 	* Location of libeemd.so can be set by environment variable
 	  LIBEEMD_FILE
 	* Add function for querying the libeemd version from the library file
