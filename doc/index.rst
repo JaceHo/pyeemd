@@ -16,7 +16,7 @@ propose enhancements, please check out the `main project website`_.
 
 .. _main project website: https://bitbucket.org/luukko/pyeemd/
 
-If you use pyeemd for scientific work please cite: (`link`__)
+If you use pyeemd for scientific work please cite: (`link`__, `arXiv`_)
 
     Luukko, P. J. J., Helske, J. & Räsänen, E., Comput. Stat. **31**, 545 (2016)
 
@@ -25,6 +25,7 @@ computes. You should definitely read it if you are unsure about what EMD, EEMD
 and CEEMDAN are.
 
 __ https://dx.doi.org/10.1007/s00180-015-0603-9
+.. _arXiv: https://arxiv.org/abs/1707.00487
 
 Contents:
 ---------
