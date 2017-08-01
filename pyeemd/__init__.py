@@ -18,6 +18,6 @@
 # along with pyeemd.  If not, see <http://www.gnu.org/licenses/>.
 
 from __future__ import absolute_import
-from .pyeemd import eemd, ceemdan, emd, emd_find_extrema, emd_num_imfs, emd_evaluate_spline, libeemd_version
+from .pyeemd import eemd, ceemdan, bemd, emd, emd_find_extrema, emd_num_imfs, emd_evaluate_spline, libeemd_version
 
 __version__ = "1.4"

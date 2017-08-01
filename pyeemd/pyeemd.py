@@ -97,6 +97,15 @@ _libeemd.ceemdan.argtypes = [ndpointer(float, flags=('C', 'A')),
                           ctypes.c_uint,
                           ctypes.c_uint,
                           ctypes.c_ulong]
+# Call signature for bemd()
+_libeemd.bemd.restype = libeemd_error_handler
+_libeemd.bemd.argtypes = [ndpointer(complex, flags=('C', 'A')),
+                          ctypes.c_size_t,
+                          ndpointer(float, flags=('C', 'A')),
+                          ctypes.c_size_t,
+                          ndpointer(complex, flags=('C', 'A')),
+                          ctypes.c_size_t,
+                          ctypes.c_uint]
 # Call signature for emd_find_extrema()
 _libeemd.emd_find_extrema.restype = None
 _libeemd.emd_find_extrema.argtypes = [ndpointer(float, flags=('C', 'A')),
@@ -295,6 +304,58 @@ def ceemdan(inp, num_imfs=None, ensemble_size=250, noise_strength=0.2, S_number=
     # Call C routine
     _libeemd.ceemdan(inp, N, outbuffer, M, ensemble_size, noise_strength, S_number,
                   num_siftings, rng_seed)
+    # Reshape outbuffer to a proper 2D array and return
+    outbuffer = numpy.reshape(outbuffer, (M, N))
+    return outbuffer
+
+
+def bemd(inp, directions=64, num_imfs=None, num_siftings=10):
+    """
+    Decompose complex-valued input data array `inp` with the Bivariate Empirical Mode
+    Decomposition algorithm[1]_. The implemented algorithm is scheme 2 in the referenced article.
+
+    Parameters
+    ----------
+    inp : array_like, shape (N,)
+        The input signal to decompose. Has to be a one-dimensional, complex-valued, array-like object.
+
+    directions : int or array_like
+        Directional angles (in radians) to use for the decomposition. Either an integer K, in which K uniformly sampled angles are used, or a one-dimensional, array-like list of angles.
+
+    num_imfs : int, optional
+        Number of IMFs to extract. If set to `None`, a default value given by
+        `emd_num_imfs(N)` is used. Note that the residual is also counted in
+        this number, so num_imfs=1 will simply give you the input signal.
+
+    num_siftings : int, optional
+        Use a maximum number of siftings as a stopping criterion.
+
+    References
+    ----------
+    .. [1] G. Rilling, P. Flandrin, P. Goncalves and J. M. Lilly,
+       Bivariate Empirical Mode Decomposition
+       IEEE Signal Processing Letters, vol. 14, no. 12, pp. 936-939, Dec. 2007.
+    """
+
+    # Perform some checks on input arguments first
+    if (num_imfs is not None and num_imfs < 1):
+        raise ValueError("num_imfs passed to bemd must be >= 1")
+    if (num_siftings <= 0):
+        raise ValueError("num_siftings passed to bemd must be positive")
+    # Initialize numpy arrays
+    inp = numpy.require(inp, complex, ('C', 'A'))
+    if (inp.ndim != 1):
+        raise ValueError("input data passed to bemd must be a 1D array")
+    N = inp.size
+    if isinstance(directions, int):
+        directions = numpy.linspace(0, 2*numpy.pi, num=directions, endpoint=False)
+    else:
+        directions = numpy.require(directions, float, ('C', 'A'))
+    num_directions = directions.size
+    M = (num_imfs if num_imfs is not None else emd_num_imfs(N))
+    outbuffer = numpy.zeros(M*N, dtype=complex, order='C')
+    # Call C routine
+    _libeemd.bemd(inp, N, directions, num_directions, outbuffer, M,  num_siftings)
     # Reshape outbuffer to a proper 2D array and return
     outbuffer = numpy.reshape(outbuffer, (M, N))
     return outbuffer
