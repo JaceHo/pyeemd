@@ -233,12 +233,10 @@ def eemd(inp, num_imfs=None, ensemble_size=250, noise_strength=0.2, S_number=Non
         raise ValueError("input data passed to eemd must be a 1D array")
     N = inp.size
     M = (num_imfs if num_imfs is not None else emd_num_imfs(N))
-    outbuffer = numpy.zeros(M*N, dtype=float, order='C')
+    outbuffer = numpy.zeros((M, N), dtype=float, order='C')
     # Call C routine
     _libeemd.eemd(inp, N, outbuffer, M, ensemble_size, noise_strength,
             S_number, num_siftings, rng_seed)
-    # Reshape outbuffer to a proper 2D array and return
-    outbuffer = numpy.reshape(outbuffer, (M, N))
     return outbuffer
 
 def ceemdan(inp, num_imfs=None, ensemble_size=250, noise_strength=0.2, S_number=None,
@@ -291,12 +289,10 @@ def ceemdan(inp, num_imfs=None, ensemble_size=250, noise_strength=0.2, S_number=
         raise ValueError("input data passed to ceemdan must be a 1D array")
     N = inp.size
     M = (num_imfs if num_imfs is not None else emd_num_imfs(N))
-    outbuffer = numpy.zeros(M*N, dtype=float, order='C')
+    outbuffer = numpy.zeros((M, N), dtype=float, order='C')
     # Call C routine
     _libeemd.ceemdan(inp, N, outbuffer, M, ensemble_size, noise_strength, S_number,
                   num_siftings, rng_seed)
-    # Reshape outbuffer to a proper 2D array and return
-    outbuffer = numpy.reshape(outbuffer, (M, N))
     return outbuffer
 
 
