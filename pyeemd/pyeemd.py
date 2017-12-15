@@ -44,6 +44,11 @@ from numpy.ctypeslib import ndpointer
 LIBEEMD_FILE_VARIABLE = "LIBEEMD_FILE"
 
 def _init():
+    # Provide a mock library for ReadTheDocs where libeemd is not available
+    # but the code needs to be imported for autodoc
+    if os.environ.get('READTHEDOCS', None) == 'True':
+        from unittest.mock import Mock
+        return Mock()
     # First, try an environment variable
     if LIBEEMD_FILE_VARIABLE in os.environ:
         return ctypes.CDLL(os.environ[LIBEEMD_FILE_VARIABLE])
