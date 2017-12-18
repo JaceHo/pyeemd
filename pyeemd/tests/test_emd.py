@@ -16,9 +16,10 @@
 # You should have received a copy of the GNU General Public License
 # along with pyeemd.  If not, see <http://www.gnu.org/licenses/>.
 
-from pyeemd import emd, eemd
+from pyeemd import emd, eemd, emd_find_extrema
 from nose.tools import assert_equal, raises
-from numpy import zeros, all, arange, sum
+import numpy as np
+from numpy import zeros, all, arange, sum, all
 from numpy.testing import assert_allclose
 from numpy.random import normal
 
@@ -97,3 +98,54 @@ def test_num_imfs_just_residual():
     x = normal(0, 1, N)
     imfs = emd(x, num_imfs=1)
     assert all(imfs[-1,:] == x)
+
+def count_zero_crossings(x):
+    signs = np.sign(x)
+    signs = signs[signs != 0]
+    return np.count_nonzero(np.diff(signs))
+
+
+def check_imfs_singlemode(x):
+    imfs = emd(x, num_siftings=0, S_number=4)
+    num_imfs = imfs.shape[0]
+    for i in reversed(range(num_imfs-1)): # residual is not tested
+        imf = imfs[i,:]
+        maxx, maxy, minx, miny = emd_find_extrema(imf)
+        # remove extra extrema at the ends of the data
+        maxx = maxx[1:-1]
+        maxy = maxy[1:-1]
+        minx = minx[1:-1]
+        miny = miny[1:-1]
+        num_extrema = len(minx) + len(maxx)
+        num_zc = count_zero_crossings(imf)
+        try:
+            assert len(miny) + len(maxy) == num_extrema, "Inconsistent number of extrema"
+            assert abs(num_zc-num_extrema) <= 1, "Number of zero crossings is %d while number of interior extrema is %d" % (num_zc, num_extrema)
+            assert all(miny <= 0), "Positive minima in IMF %d/%d: %s" % (i+1, num_imfs, miny[miny > 0])
+            assert all(maxy >= 0), "Negative maxima in IMF %d/%d: %s" % (i+1, num_imfs, maxy[maxy < 0])
+        except AssertionError as ae:
+            try:
+                from matplotlib import pyplot as plt
+                plt.figure()
+                plt.title(str(ae) + " %d minima, %d maxima, %d zero-crossings" % (len(miny),
+                   len(maxy), num_zc))
+                plt.plot(imf, 'k-', alpha=0.3)
+                plt.plot(maxx, maxy, 'bs')
+                plt.plot(minx, miny, 'rx')
+                plt.axhline(0, linestyle='dashed', color='black')
+                plt.show()
+            except ImportError:
+                pass
+            raise ae
+
+
+def test_imfs_singlemode_normal():
+    for i in range(32):
+        x = normal(0, 1, 128)
+        check_imfs_singlemode(x)
+
+
+def test_imfs_singlemode_uniform_discrete():
+    for i in range(32):
+        x = np.random.randint(low=-5, high=6, size=128)
+        check_imfs_singlemode(x)
