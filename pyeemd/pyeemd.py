@@ -111,7 +111,6 @@ _libeemd.emd_find_extrema.argtypes = [ndpointer(float, flags=('C', 'A')),
                                       ctypes.POINTER(ctypes.c_size_t),
                                       ndpointer(float, flags=('C', 'A', 'W')),
                                       ndpointer(float, flags=('C', 'A', 'W')),
-                                      ctypes.POINTER(ctypes.c_size_t),
                                       ctypes.POINTER(ctypes.c_size_t)]
 # Call signature for emd_num_imfs()
 _libeemd.emd_num_imfs.restype = ctypes.c_size_t
@@ -352,9 +351,8 @@ def emd_find_extrema(x):
     minx = numpy.empty(N, dtype=float, order='C')
     miny = numpy.empty(N, dtype=float, order='C')
     num_min = ctypes.c_size_t()
-    num_zc = ctypes.c_size_t()
     _libeemd.emd_find_extrema(x, N, maxx, maxy, ctypes.byref(num_max), minx,
-            miny, ctypes.byref(num_min), ctypes.byref(num_zc))
+            miny, ctypes.byref(num_min))
     maxx.resize(num_max.value)
     maxy.resize(num_max.value)
     minx.resize(num_min.value)

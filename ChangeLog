@@ -1,6 +1,7 @@
 Notable changes from previous release:
 
 In development:
+	* Support libeemd 1.5
 	* Location of libeemd.so can be set by environment variable
 	  LIBEEMD_FILE
 	* Add function for querying the libeemd version from the library file
