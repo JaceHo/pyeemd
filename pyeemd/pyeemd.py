@@ -67,6 +67,12 @@ def _init():
 
 _libeemd = _init()
 
+_libeemd.emd_error_string.restype = None
+_libeemd.emd_error_string.argtypes = [ctypes.c_int, ctypes.c_char_p]
+
+class LibeemdError(Exception):
+    pass
+
 def libeemd_error_handler(err):
     """
     Function for handling error codes reported by libeemd and converting
@@ -74,11 +80,9 @@ def libeemd_error_handler(err):
     """
     if err == 0:
         return
-    if 1 <= err <= 7:
-        raise ValueError("libeemd reported a call with incorrect parameters, but the error condition was not handled by pyeemd. The error code was %d. Please see eemd.h to see what the error was and file a bug report." % err)
-    else:
-        raise RuntimeError("libeemd reported a runtime error with error code %d. Please see eemd.h to see what the error was and file a bug report." % err)
-    return
+    err_string = ctypes.create_string_buffer(64)
+    _libeemd.emd_error_string(err, err_string)
+    raise LibeemdError(err_string.value.decode('ascii'))
 
 # Call signature for eemd()
 _libeemd.eemd.restype = libeemd_error_handler
